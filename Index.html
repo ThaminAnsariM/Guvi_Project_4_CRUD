@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Income & Expence Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              righteous: ["Righteous", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-[url('/Asset/mobile_background.jpg')] bg-cover bg-no-repeat min-h-screen p-4 flex items-center justify-center"
+  >
+    <div
+      class="sm:flex sm:justify-center sm:items-center sm:h-full place-self-center  w-auto "
+    >
+      <div
+        class="flex flex-col items-center justify-center w-auto sm:flex sm:flex-wrap sm:justify-center  SM:w-1/2 m-2 p-2"
+      >
+        <div>
+          <h1
+            class="font-righteous text-3xl font-semi bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+          >
+            hi welcome to your FinTrack
+          </h1>
+          <p
+            class="font-righteous text-2xl font- bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+          >
+            current balance <br /><span
+              id="current_balance"
+              class="font-righteous text-4xl font- bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+            ></span>
+          </p>
+        </div>
+        <div class="flex justify-center items-center gap-4 mt-2">
+          <div
+            class="h-[100px] w-[150px] border-solid rounded-tr-[15px] rounded-bl-[15px]"
+          >
+            <h2 class="font-righteous text-2xl font- bold text-green-500">
+              total Income
+            </h2>
+            <h1
+              class="font-righteous text-xl font- bold text-green-500 text-center"
+            >
+              0.00
+            </h1>
+          </div>
+          <div
+            class="h-[100px] w-[150px] border-solid rounded-tr-[15px] rounded-bl-[15px]"
+          >
+            <h2 class="font-righteous text-2xl font- bold text-red-500">
+              total Spend
+            </h2>
+            <h1
+              class="font-righteous text-xl font- bold text-red-500 text-center"
+            >
+              0.00
+            </h1>
+          </div>
+        </div>
+        <form
+          onsubmit="dataSubmit(); return false;"
+          class="flex flex-col items-center justify-center w-full"
+        >
+          <label
+            for="Tran"
+            class="font-righteous text-xl font-semi bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+            >Transaction</label
+          >
+          <input
+            type="text"
+            id="Tran"
+            required
+            placeholder="Enter transaction amount"
+            class="w-full p-2 border border-gray-300 rounded-md placeholder-gray-400 placeholder-italic placeholder-xl"
+          />
+          <label
+            for="Transaction_Type"
+            class="font-righteous text-xl font-semi bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+            >Transaction_Type</label
+          >
+          <select
+            name="Transaction"
+            id="Transaction_Type"
+            class="h-[30px] w-[70px] rounded-[10px] font-righteous text-sm font-normal text-gray-500"
+          >
+            <option value="credit">Credit</option>
+            <option value="debit">debit</option>
+          </select>
+
+          <label
+            for="Transaction_Date"
+            class="font-righteous text-xl font-semi bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+            >Transaction_Date</label
+          >
+          <input
+            type="date"
+            name="Date_of_Transaction"
+            id="Transaction_Date"
+            class="rounded-[15px] font-righteous font-normal bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-gray-600"
+            required
+          />
+          <label
+            for="Discreption"
+            class="font-righteous text-xl font-semi bold bg-gradient-to-br from-orange-600 via-teal-400 to-lime-500 bg-clip-text text-transparent"
+            >Discreption</label
+          >
+          <textarea
+            name="discreption"
+            id="Discreption"
+            placeholder="Enter_notes"
+            class="w-full p-2 border border-gray-300 rounded-md placeholder-gray-400 placeholder-italic placeholder-xl"
+            required
+          ></textarea>
+          <input
+            type="submit"
+            value="submit"
+            class="w-[100px] h-[40px] bg-gradient-to-tr from-teal-400 from-0% via-cyan-300 via-50% to-blue-500 to-100% text-white p-2 m-4 rounded-[25px]"
+          />
+        </form>
+      </div>
+      <div class="bg-blue-500 SM:w-1/2 m-2 p-2 rounded-t-[20px]">
+        <div class="flex justify-evenly items-center">
+          <div>
+            <label for="all">All</label>
+            <input type="radio" name="filter" id="all" checked />
+          </div>
+          <div>
+            <label for="gained">credited</label>
+            <input type="radio" name="filter" id="gained" />
+          </div>
+          <div>
+            <label for="spends">spent</label>
+            <input type="radio" name="filter" id="spends" />
+          </div>
+        </div>
+
+        <div class="w-full overflow-x-auto">
+          <table
+            class="min-w-full border border-gray-300 rounded-lg overflow-hidden text-center shadow-md"
+          >
+            <thead class="bg-gray-200 text-gray-700 text-sm sm:text-base">
+              <tr>
+                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Transaction</th>
+                <th class="px-4 py-2">Amount</th>
+                <th class="px-4 py-2">Description</th>
+                <th class="px-4 py-2">Action</th>
+              </tr>
+            </thead>
+            <tbody
+              id="tbody"
+              class="bg-white text-gray-800 text-sm sm:text-base"
+            ></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
